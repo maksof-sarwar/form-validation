@@ -26,6 +26,8 @@ export class AppComponent {
           ]
         ],
         email: ['', [Validators.required, Validators.email]],
+        startDate: [null, [Validators.required]],
+        endDate: [null, [Validators.required]],
         password: [
           '',
           [
@@ -38,7 +40,7 @@ export class AppComponent {
         acceptTerms: [false, Validators.requiredTrue]
       },
       {
-        validators: [Validation.match('password', 'confirmPassword')]
+        validators: [Validation.match('password', 'confirmPassword'), Validation.fromToDate('startDate', 'endDate')]
       }
     );
   }

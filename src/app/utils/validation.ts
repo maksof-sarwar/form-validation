@@ -18,4 +18,23 @@ export default class Validation {
       }
     };
   }
+  static fromToDate(
+    fromDateField: string,
+    toDateField: string,
+    errorName: string = 'fromToDate'
+  ): ValidatorFn {
+    return (formGroup: AbstractControl): { [key: string]: boolean } | null => {
+      const fromDate = formGroup.get(fromDateField)?.value;
+      const toDate = formGroup.get(toDateField)?.value;
+      console.log(fromDate, toDate);
+      // Ausing the fromDate and toDate are numbers. In not convert them first after null check
+      if (fromDate !== null && toDate !== null && fromDate > toDate) {
+        formGroup.get(fromDateField)?.setErrors({ [errorName]: true });
+        formGroup.get(toDateField)?.setErrors({ [errorName]: true });
+        console.log(errorName)
+        return { [errorName]: true };
+      }
+      return null;
+    };
+  }
 }
